@@ -3,6 +3,7 @@ using Loginoperations.Dto;
 using Loginoperations.Dto.Product;
 using Loginoperations.Model;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Loginoperations.Controllers;
 [ApiController]
@@ -30,8 +31,10 @@ public class CartController : ControllerBase
         }
 
         Cart cart = new Cart();
-        cart.Buyer = dbUser;
+        cart.User = dbUser;
         cart.Product = dbProduct;
+        cart.ProductId = productId;
+        cart.UserId=userId;
         _context.Carts.Add(cart);
         await _context.SaveChangesAsync();
         return Ok("Ürün Sepete Eklendi");
@@ -52,25 +55,24 @@ public class CartController : ControllerBase
     }
     // kullanicinin sepetindeki listeleri getir
     [HttpGet("carts/{userId}")]
-    public async Task<List<Product>> getCarts(int userId)
+    public  async Task<IActionResult> getCartList(int? userId)
     {
-        
         List<Cart> carts = _context.Carts.ToList();
-        List<Product> products = new List<Product>();
+        List<CartDto> cartList = new List<CartDto>();
         foreach (var cart in carts)
         {
-            if (cart != null && cart.UserId != null && cart.UserId == userId)
+            if (cart!=null && cart.UserId == userId)
             {
-                
-                var product = _context.Products.FirstOrDefault(x => x.Id == cart.ProductId);
+                var product = await _context.Products.FirstOrDefaultAsync(x => x.Id == cart.ProductId);
                 if (product != null)
                 {
-                    products.Add(product);
-                }
+                    cartList.Add(new CartDto(cart.Id,product));
+                } 
+                
             }
         }
-        
-        return products;
+
+        return Ok(cartList);
     }
 
 }

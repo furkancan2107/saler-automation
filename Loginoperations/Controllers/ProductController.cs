@@ -104,4 +104,18 @@ public class ProductController : ControllerBase
   }
   return productsList;
  }
+ // bir productu getir
+ [HttpGet("get/{productId}")]
+ public async Task<IActionResult> getProduct(int productId)
+ {
+  var db = _context.Products.FirstOrDefault(x => x.Id == productId);
+  if (db == null)
+  {
+   return BadRequest("Ürün Bulunamadi");
+  }
+  var convertP = _converter.convertProduct(db);
+  return Ok(convertP);
+ }
+
+ 
 }

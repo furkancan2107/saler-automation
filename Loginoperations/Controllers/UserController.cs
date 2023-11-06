@@ -67,7 +67,7 @@ public class UserController :ControllerBase
             return BadRequest("Şifre hatalı, lütfen tekrar deneyin.");
         }
 
-        return Ok("Başarı ile giriş yapıldı");
+        return Ok(dbUser.Id);
     }
     [HttpPut("forgot")]
     // şifremi unuttum

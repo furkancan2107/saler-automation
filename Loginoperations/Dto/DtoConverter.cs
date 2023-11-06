@@ -25,12 +25,24 @@ public class DtoConverter
 
     public ProductsResponse convertProduct(Model.Product product)
     {
-       
-        if (product == null)
-        {
-            return null;
-        }
         User db = _context.Users.FirstOrDefault(x => x.Id == product.UserId);
+        if (product == null || db==null )
+        {
+            return  new ProductsResponse();
+        }
+       
         return new ProductsResponse(product.Id,product.Title,product.Description,product.Image,product.Price,product.Location,product.UserId,convertUser(db),product.DatePosted);
+    }
+
+    public CartResponse convertCart(Cart cart)
+    {
+        Model.Product product = _context.Products.FirstOrDefault(x => x.Id == cart.ProductId);
+        User user = _context.Users.FirstOrDefault(x => x.Id == cart.UserId);
+        if (cart == null || product==null || user==null)
+        {
+            return new CartResponse();
+        }
+        
+        return new CartResponse(cart.Id,convertProduct(product),convertUser(user));
     }
 }
