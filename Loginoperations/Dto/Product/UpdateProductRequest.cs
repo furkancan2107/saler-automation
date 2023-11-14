@@ -4,6 +4,7 @@ namespace Loginoperations.Dto.Product;
 
 public class UpdateProductRequest
 {
+    
     [Required(ErrorMessage = "Başlık boş olamaz")]
     public string Title { get; set; }
     [Required(ErrorMessage = "Açıklama boş olamaz")]

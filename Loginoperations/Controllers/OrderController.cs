@@ -77,7 +77,7 @@ public class OrderController : ControllerBase
     
     // kullanıcıya ait siparişleri listele
     [HttpGet("{userId}")]
-    public async Task<List<ProductsResponse>> getOrders(int userId)
+    public async Task<List<ProductsResponse>> getMyOrders(int userId)
     {
         List<Order> orders = _context.Orders.ToList();
         List<ProductsResponse> products = new List<ProductsResponse>();
@@ -95,4 +95,25 @@ public class OrderController : ControllerBase
 
         return products;
     }
+    // kullaniciya gelen siparişleri görüntüle
+    [HttpGet("getOrders/{userId}")]
+    public async Task<List<ProductsResponse>> getOrders(int userId)
+    {
+        List<Order> orders = _context.Orders.ToList();
+        List<ProductsResponse> products = new List<ProductsResponse>();
+        foreach (var order in orders)
+        {
+            if (order != null)
+            {
+                if (order.Product.UserId == userId)
+                {
+                    var product = _context.Products.FirstOrDefault(x => x.Id == order.ProductId);
+                    products.Add(_converter.convertProduct(product));
+                }
+            }
+        }
+
+        return products;
+    }
+    
 }

@@ -1,10 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using SQLite;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Loginoperations.Model;
 
 public class Product
 {
-        
+    [SQLite.PrimaryKey, AutoIncrement]
     public int Id { get; set; }
     public string Title { get; set; }
     public string Description { get; set; }

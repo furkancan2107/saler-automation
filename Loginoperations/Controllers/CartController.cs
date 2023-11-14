@@ -18,6 +18,11 @@ public class CartController : ControllerBase
     {
         _context = context;
     }
+    [HttpGet]
+    public String sayHello()
+    {
+        return "Hello";
+    }
 
     // sepete ekle 
     [HttpPost("addCart/{userId}/{productId}")]
