@@ -77,43 +77,45 @@ public class OrderController : ControllerBase
     
     // kullanıcıya ait siparişleri listele
     [HttpGet("{userId}")]
-    public async Task<List<ProductsResponse>> getMyOrders(int userId)
+    public async Task<List<Order>> getMyOrders(int userId)
     {
         List<Order> orders = _context.Orders.ToList();
-        List<ProductsResponse> products = new List<ProductsResponse>();
+       // List<ProductsResponse> products = new List<ProductsResponse>();
+       List<Order> orderList = new List<Order>();
         foreach (var order in orders)
         {
             if (order != null)
             {
-                if (order.UserId == userId)
+                var db = _context.Products.FirstOrDefault(x => x.Id == order.ProductId);
+                if (db!=null && order.UserId == userId)
                 {
-                    var product = _context.Products.FirstOrDefault(x => x.Id == order.ProductId);
-                    products.Add(_converter.convertProduct(product));
+                   /* var product = _context.Products.FirstOrDefault(x => x.Id == order.ProductId);
+                    products.Add(_converter.convertProduct(product));*/
+                   orderList.Add(order);
                 }
             }
         }
 
-        return products;
+        return orderList;
     }
     // kullaniciya gelen siparişleri görüntüle
     [HttpGet("getOrders/{userId}")]
-    public async Task<List<ProductsResponse>> getOrders(int userId)
+    public async Task<List<Order>> getOrders(int userId)
     {
         List<Order> orders = _context.Orders.ToList();
-        List<ProductsResponse> products = new List<ProductsResponse>();
+        List<Order> orderList = new List<Order>();
         foreach (var order in orders)
         {
             if (order != null)
             {
-                if (order.Product.UserId == userId)
+                var db = _context.Products.FirstOrDefault(x => x.Id == order.ProductId);
+                if (db != null && db.UserId==userId)
                 {
-                    var product = _context.Products.FirstOrDefault(x => x.Id == order.ProductId);
-                    products.Add(_converter.convertProduct(product));
+                    orderList.Add(order);
                 }
             }
         }
-
-        return products;
+        return orderList;
     }
     
 }
