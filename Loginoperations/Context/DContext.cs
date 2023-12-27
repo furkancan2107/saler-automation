@@ -17,7 +17,7 @@ namespace Loginoperations.Context
         {
             modelBuilder.Entity<Product>()
                 .Property(p => p.Price)
-                .HasColumnType("decimal(18, 2)"); // Bu örnekte, 18 toplam basamak ve 2 ondalık basamak kullanıldı
+                .HasColumnType("decimal(18, 2)"); 
         }
 
         public DContext(DbContextOptions<DContext> options)

@@ -11,7 +11,7 @@ namespace Loginoperations.Controllers;
 public class UserController :ControllerBase
 {
     private readonly DContext _context;
-    private readonly PasswordService _passwordService;
+    private readonly PasswordService _passwordService; 
     private readonly MailService _mailService;
     
     public UserController(DContext context, PasswordService passwordService,MailService mailService)
@@ -23,7 +23,7 @@ public class UserController :ControllerBase
 
     [HttpPost("create")]
     //kayıt
-    public async Task<IActionResult> CreeateUser([FromBody] CreateUserDto? user)
+    public async Task<IActionResult> CreateUser([FromBody] CreateUserDto? user)
     {
         bool isEmailUnique = _context.Users.All(i => i.Email != user.Email);
         if (!isEmailUnique)

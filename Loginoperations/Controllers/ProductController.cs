@@ -71,6 +71,7 @@ public class ProductController : ControllerBase
   db.Title = productRequest.Title;
   db.Description = productRequest.Description;
   db.Price = productRequest.Price;
+  db.Location = productRequest.Location;
   _context.Products.Update(db);
   await _context.SaveChangesAsync();
   return Ok(productId+" idli ürün güncellendi");

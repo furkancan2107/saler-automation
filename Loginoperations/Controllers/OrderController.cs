@@ -60,7 +60,7 @@ public class OrderController : ControllerBase
    
     
     // sipariş durumu güncelle
-    [HttpPatch("updateOrderStatus")]
+    [HttpPut("updateOrderStatus/{orderId}")]
     public async Task<IActionResult> updateOrderStatus(int orderId,[FromBody] UpdateStatusRequest update)
     {
         var db = _context.Orders.FirstOrDefault(x => x.Id == orderId);
@@ -69,7 +69,7 @@ public class OrderController : ControllerBase
             return BadRequest("Sipariş Bulunamadi");
         }
 
-        db.OrderStatus = update.Status.ToString();
+        db.OrderStatus = update.Status;
         _context.Orders.Update(db);
         await _context.SaveChangesAsync();
         return Ok("Durumu güncellendi");

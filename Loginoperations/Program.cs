@@ -13,7 +13,8 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<ProductContext>(x=>x.UseSqlite("Data Source=login.db"));
 builder.Services.AddDbContext<CartContext>(x=>x.UseSqlite("Data Source=login.db"));*/
 //builder.Services.AddDbContext<DContext>(x => x.UseSqlite(("Data Source=project.db")));
-builder.Services.AddDbContext<DContext>(x => x.UseSqlServer("Data Source=SQL9001.site4now.net;Initial Catalog=db_aa1683_sales;User Id=db_aa1683_sales_admin;Password=Ef123456789"));
+//builder.Services.AddDbContext<DContext>(x => x.UseSqlServer("Data Source=SQL9001.site4now.net;Initial Catalog=db_aa1683_sales;User Id=db_aa1683_sales_admin;Password=Ef123456789"));
+builder.Services.AddDbContext<DContext>(x=>x.UseSqlServer("Data Source=SQL9001.site4now.net;Initial Catalog=db_aa2f9f_sales;User Id=db_aa2f9f_sales_admin;Password=Ef123456789"));
 builder.Services.AddScoped<PasswordService>();
 builder.Services.AddScoped<MailService>();
 builder.Services.AddScoped<DtoConverter>();

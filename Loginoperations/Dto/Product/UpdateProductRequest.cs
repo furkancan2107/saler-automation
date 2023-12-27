@@ -11,4 +11,5 @@ public class UpdateProductRequest
     public string Description { get; set; }
     [Required(ErrorMessage = "Fiyat boş olamaz")]
     public decimal Price { get; set; }
+    public string Location { get; set; }
 }
